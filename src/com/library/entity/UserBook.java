@@ -2,9 +2,15 @@ package com.library.entity;
 
 import com.library.annotations.FileDesc;
 
-@FileDesc(filename = "userbook.txt")
-public class UserBook {
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
 
+@FileDesc(filename = "userbook.txt")
+public class UserBook implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID =1L;
     private int id;
     private int userId;
     private int bookId;
@@ -40,6 +46,19 @@ public class UserBook {
 
     public void setBookId(int bookId) {
         this.bookId = bookId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserBook userBook = (UserBook) o;
+        return id == userBook.id && userId == userBook.userId && bookId == userBook.bookId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userId, bookId);
     }
 
     @Override

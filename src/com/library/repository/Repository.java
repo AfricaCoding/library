@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface Repository<T, ID> {
 
-    List<T> findAll() throws IOException;
+    List<T> findAll() throws IOException, ClassNotFoundException;
 
-    void save(T library) throws IOException;
+    void save(T library) throws IOException, ClassNotFoundException;
 
 }
