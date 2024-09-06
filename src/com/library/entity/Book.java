@@ -41,4 +41,9 @@ public class Book {
     public void setLibraryId(int libraryId) {
         this.libraryId = libraryId;
     }
+
+    @Override
+    public String toString() {
+        return id + ", " + name + "\n";
+    }
 }
