@@ -12,7 +12,7 @@ public class AppendableObjectOutputStream extends ObjectOutputStream {
 
     @Override
     protected void writeStreamHeader() throws IOException {
-        // Ne pas réécrire l'en-tête pour éviter la corruption lors de l'append
+        // Ne pas réécrire l'en-tête pour éviter les conflits lors de l'ajout dans le fichier
         reset();
     }
 }

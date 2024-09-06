@@ -2,8 +2,11 @@ package com.library.entity;
 
 import com.library.annotations.FileDesc;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 @FileDesc(filename="books.txt")
-public class Book {
+public class Book implements Serializable {
 
     private int id;
     private String name;
@@ -40,5 +43,18 @@ public class Book {
 
     public void setLibraryId(int libraryId) {
         this.libraryId = libraryId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return id == book.id && libraryId == book.libraryId && Objects.equals(name, book.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, libraryId);
     }
 }
