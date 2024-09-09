@@ -9,5 +9,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FileDesc {
+    String schema() default "public";
+
+    String database() default "database";
+
     String filename() default "";
+
+    boolean autocrement() default false;
 }

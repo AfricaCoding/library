@@ -1,30 +1,28 @@
 package com.library;
 
-import java.util.Scanner;
+import com.library.entity.Library;
+import com.library.repository.BookRepository;
+import com.library.repository.LibraryRepository;
+import com.library.repository.UserBookRepository;
+import com.library.repository.UserRepository;
+import com.library.service.LibraryService;
+import com.library.ui.UserInteraction;
+import com.library.utils.DataGenerator;
+
+import java.io.IOException;
 
 public class Main {
-    public static final String LISTER = "l";
-    public static final String ADD = "e";
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-    public static void main(String[] args) {
+        // Initialisation des données
+        DataGenerator.inti();
+        LibraryService libraryService = new LibraryService(
+                new LibraryRepository(), new BookRepository(), new UserRepository(), new UserBookRepository()
+        );
+        Library library = libraryService.findById(1);
 
-        Scanner sc = new Scanner(System.in);
-
-        while (true) {
-            System.out.println("Bienvenue sur le repertoire des bibliotheques de la ville");
-            System.out.println("Pour voir la liste des bibliotheques, tapez +\""+LISTER+"\"\n" +
-                    "Sinon +\""+ADD+"\" pour ajouter une bibliotheque");
-
-            String userCommand = sc.nextLine();
-            switch (userCommand.toLowerCase()){
-                case LISTER:
-                    break;
-                case ADD:
-                    break;
-                default:
-                    System.out.println("Commande non existante");
-            }
-
-        }
+        // Interface utilisateur
+        UserInteraction userInteraction = new UserInteraction(libraryService, library);
+        userInteraction.startInteraction();
     }
 }

@@ -2,23 +2,32 @@ package com.library.entity;
 
 import com.library.annotations.FileDesc;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-@FileDesc(filename="books.txt")
+@FileDesc(autocrement = true)
 public class Book implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
     private int id;
     private String name;
     private int libraryId;
+    private Library library;
 
     public Book() {
     }
 
-    public Book(int id, String name, int libraryId) {
+    public Book(String name, Library library) {
+        this.name = name;
+        this.library = library;
+    }
+
+    public Book(int id, String name, Library library) {
         this.id = id;
         this.name = name;
-        this.libraryId = libraryId;
+        this.library = library;
     }
 
     public int getId() {
@@ -53,8 +62,25 @@ public class Book implements Serializable {
         return id == book.id && libraryId == book.libraryId && Objects.equals(name, book.name);
     }
 
+    public Library getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(Library library) {
+        this.library = library;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, name, libraryId);
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", libraryId=" + libraryId +
+                '}';
     }
 }

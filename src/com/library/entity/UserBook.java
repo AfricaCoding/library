@@ -6,23 +6,29 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-@FileDesc(filename = "userbook.txt")
+@FileDesc(filename = "user_book", autocrement = true)
 public class UserBook implements Serializable {
 
     @Serial
-    private static final long serialVersionUID =1L;
+    private static final long serialVersionUID = 1L;
     private int id;
-    private int userId;
-    private int bookId;
+    private Book books;
+    private User user;
 
     public UserBook() {
     }
 
-    public UserBook(int id, int userId, int bookId) {
-        this.id = id;
-        this.userId = userId;
-        this.bookId = bookId;
+    public UserBook(Book books, User user) {
+        this.books = books;
+        this.user = user;
     }
+
+    public UserBook(int id, Book books, User user) {
+        this.id = id;
+        this.books = books;
+        this.user = user;
+    }
+
 
     public int getId() {
         return id;
@@ -32,20 +38,20 @@ public class UserBook implements Serializable {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public Book getBooks() {
+        return books;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setBooks(Book books) {
+        this.books = books;
     }
 
-    public int getBookId() {
-        return bookId;
+    public User getUser() {
+        return user;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -53,16 +59,20 @@ public class UserBook implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserBook userBook = (UserBook) o;
-        return id == userBook.id && userId == userBook.userId && bookId == userBook.bookId;
+        return id == userBook.id && Objects.equals(books, userBook.books) && Objects.equals(user, userBook.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, bookId);
+        return Objects.hash(id, books, user);
     }
 
     @Override
     public String toString() {
-        return id + "," + userId + "," + bookId;
+        return "UserBook{" +
+                "id=" + id +
+                ", books=" + books +
+                ", user=" + user +
+                '}';
     }
 }
